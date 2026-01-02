@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Api = axios.create({
-  baseURL: "http://crm-backend-env.eba-rmzwb2zq.ap-south-1.elasticbeanstalk.com/api",
+  baseURL: "https://crm-backend-env.eba-rmzwb2zq.ap-south-1.elasticbeanstalk.com/api",
   withCredentials: true,
 });
 
@@ -59,7 +59,7 @@ Api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        await axios.post("http://crm-backend-env.eba-rmzwb2zq.ap-south-1.elasticbeanstalk.com/api/refresh",
+        await axios.post("https://crm-backend-env.eba-rmzwb2zq.ap-south-1.elasticbeanstalk.com/api/refresh",
           {},
           { withCredentials: true }
         );
