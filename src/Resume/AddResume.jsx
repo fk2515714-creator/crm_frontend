@@ -90,8 +90,7 @@ export default function AddResume() {
     <div className="w-full min-h-screen relative overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgImage})` }}
-      />
+        style={{ backgroundImage: `url(${bgImage})` }}/>
       <div className="absolute inset-0 bg-white/80 backdrop-blur-xl" />
 
       <div className="relative z-10 flex min-h-screen">

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Api = axios.create({
-  baseURL: "https:/crm-backend-ng24.onrender.com/api",
+  baseURL: "https://crm-backend-ng24.onrender.com/api",
   withCredentials: true,
 });
 
@@ -32,18 +32,17 @@ Api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const status = error.response?.status;
 
-    if (!error.response || !originalRequest) {
+    if (!originalRequest || !status) {
       return Promise.reject(error);
     }
-
-    const status = error.response.status;
-
-    // handle auth errors
-    if ((status === 401 || status === 403) && !originalRequest._retry) {
+    if (status === 403) {
+      return Promise.reject(error);
+    }
+    if (status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      // queue requests if refresh already running
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({
@@ -59,35 +58,28 @@ Api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        await axios.post("https:/crm-backend-ng24.onrender.com/api/refresh",
+        const refreshRes = await axios.post(
+          "https://crm-backend-ng24.onrender.com/api/refresh",
           {},
           { withCredentials: true }
         );
+
         const newToken = refreshRes?.data?.data?.token;
+        if (!newToken) throw new Error("No access token");
 
-        if (!newToken) {
-          throw new Error("No access token returned from refresh");
-        }
-
-        // store & set new token
         localStorage.setItem("accessToken", newToken);
         Api.defaults.headers.common.Authorization = `Bearer ${newToken}`;
 
         processQueue(null, newToken);
         isRefreshing = false;
 
-        // retry original request
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return Api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError, null);
         isRefreshing = false;
 
-        // force logout
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
-        localStorage.removeItem("loginEmail");
-
+        localStorage.clear();
         window.location.href = "/";
         return Promise.reject(refreshError);
       }
@@ -106,7 +98,6 @@ export const callApi = async (url, method = "GET", body = null) => {
     });
     return res.data;
   } catch (err) {
-    console.error("API Error:", err.response?.data || err.message);
     throw err;
   }
 };
