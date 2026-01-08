@@ -146,7 +146,7 @@ export default function LoginForm() {
               disabled={loading}
               className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold text-lg hover:from-blue-700 hover:to-cyan-700 transition disabled:opacity-60"
             >
-              {loading ? "Please wait..." : "Send OTP"}
+              {loading ? "Please wait..." : "login"}
             </button>
           </form>
 
