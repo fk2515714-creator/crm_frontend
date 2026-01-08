@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { callApi } from "../Services/Api";
 
-export default function EditStudent({
-  student,
-  onClose,
-  onUpdated,
-}) {
+export default function EditStudent({ student, onClose, onUpdated }) {
   const [formData, setFormData] = useState(student);
 
   useEffect(() => {
@@ -14,14 +10,10 @@ export default function EditStudent({
 
   if (!formData) return null;
 
-  /* UPDATE */
+  /* UPDATE (UNCHANGED) */
   const handleUpdate = async () => {
     try {
-      const res = await callApi(
-        `/students/${formData._id}`,
-        "PUT",
-        formData
-      );
+      const res = await callApi(`/students/${formData._id}`, "PUT", formData);
       onUpdated(res.data);
       onClose();
     } catch (err) {
@@ -30,31 +22,33 @@ export default function EditStudent({
   };
 
   return (
-    <div className="bg-white rounded-2xl p-8 border border-cyan-300 shadow-lg">
-      <h2 className="text-2xl font-semibold mb-1">
+    <div
+      className="
+        bg-white
+        rounded-2xl
+        p-8
+        border border-[#ead7c0]
+        shadow-lg
+      "
+    >
+      <h2 className="text-2xl font-semibold text-[#3b2a24] mb-1">
         Edit Student
       </h2>
-      <p className="text-sm text-gray-600 mb-6">
-        Update student details.
-      </p>
+      <p className="text-sm text-[#7a5a3a] mb-6">Update student details.</p>
 
       {/* FORM */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           placeholder="Full name *"
           value={formData.name}
-          onChange={(e) =>
-            setFormData({ ...formData, name: e.target.value })
-          }
-          className="input"
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         />
 
         <select
           value={formData.gender}
-          onChange={(e) =>
-            setFormData({ ...formData, gender: e.target.value })
-          }
-          className="input"
+          onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         >
           <option value="">Gender</option>
           <option>Male</option>
@@ -64,10 +58,8 @@ export default function EditStudent({
         <input
           placeholder="Age"
           value={formData.age}
-          onChange={(e) =>
-            setFormData({ ...formData, age: e.target.value })
-          }
-          className="input"
+          onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         />
 
         <input
@@ -79,25 +71,21 @@ export default function EditStudent({
               qualification: e.target.value,
             })
           }
-          className="input"
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         />
 
         <input
           placeholder="Email *"
           value={formData.email}
-          onChange={(e) =>
-            setFormData({ ...formData, email: e.target.value })
-          }
-          className="input"
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         />
 
         <input
           placeholder="Phone *"
           value={formData.phone}
-          onChange={(e) =>
-            setFormData({ ...formData, phone: e.target.value })
-          }
-          className="input"
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         />
 
         <input
@@ -106,25 +94,21 @@ export default function EditStudent({
           onChange={(e) =>
             setFormData({ ...formData, address: e.target.value })
           }
-          className="input md:col-span-2"
+          className="input md:col-span-2 border-[#ead7c0] focus:ring-[#b08a63]"
         />
 
         <input
           placeholder="Course *"
           value={formData.course}
-          onChange={(e) =>
-            setFormData({ ...formData, course: e.target.value })
-          }
-          className="input"
+          onChange={(e) => setFormData({ ...formData, course: e.target.value })}
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         />
 
         <input
           placeholder="Batch"
           value={formData.batch}
-          onChange={(e) =>
-            setFormData({ ...formData, batch: e.target.value })
-          }
-          className="input"
+          onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
+          className="input border-[#ead7c0] focus:ring-[#b08a63]"
         />
       </div>
 
@@ -132,16 +116,30 @@ export default function EditStudent({
       <div className="flex flex-col md:flex-row gap-3 mt-8">
         <button
           onClick={handleUpdate}
-          className="flex-1 bg-cyan-600 text-white py-3 rounded-full hover:bg-cyan-700"
+          className="
+            flex-1
+            bg-[#b08a63]
+            hover:bg-[#9c774b]
+            text-white
+            py-3
+            rounded-full
+            font-medium
+            transition
+          "
         >
           Update Student
         </button>
 
-        {/* DELETE BUTTON REMOVED */}
-
         <button
           onClick={onClose}
-          className="px-6 py-3 border rounded-full"
+          className="
+            px-6 py-3
+            border border-[#d9b48a]
+            rounded-full
+            text-[#7a5a3a]
+            hover:bg-[#f3e6d8]
+            transition
+          "
         >
           Cancel
         </button>

@@ -44,8 +44,13 @@ export default function AddPlacement() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ( !form.student || !form.companyName || !form.jobRole ||
-      !form.package || !form.location ){
+    if (
+      !form.student ||
+      !form.companyName ||
+      !form.jobRole ||
+      !form.package ||
+      !form.location
+    ) {
       toast.error("Please fill all required fields");
       return;
     }
@@ -53,7 +58,6 @@ export default function AddPlacement() {
     try {
       setLoading(true);
       await callApi("/admin/createPlacement", "POST", form);
-
       toast.success("Placement added successfully");
       navigate("/placements");
     } catch (err) {
@@ -68,12 +72,21 @@ export default function AddPlacement() {
   };
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div className="w-full min-h-screen relative overflow-hidden bg-[#f7f2ec]">
+      {/* ===== LIGHT BROWN BACKGROUND ===== */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f7f2ec] via-[#f3e6d8] to-[#ead7c0]" />
+
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px]
+                   bg-cover bg-center opacity-[0.12] blur-sm rounded-full"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
-      <div className="absolute inset-0 bg-gray-50 backdrop-blur-xl" />
+
+      <div
+        className="absolute bottom-0 left-0 w-[400px] h-[400px]
+                   bg-gradient-to-br from-[#e6c8a5]/40 to-[#d9b48a]/40
+                   rounded-full blur-3xl"
+      />
 
       <div className="relative z-10 flex min-h-screen">
         <Sidebar />
@@ -82,8 +95,17 @@ export default function AddPlacement() {
           <Header userName="Add Placement" />
 
           <main className="flex-1 px-4 md:px-8 py-8">
-            <div className="max-w-3xl mx-auto bg-white border border-cyan-300 rounded-2xl p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <div
+              className="
+                max-w-3xl mx-auto
+                bg-white
+                border border-[#ead7c0]
+                rounded-2xl
+                p-6 md:p-8
+                shadow-sm
+              "
+            >
+              <h2 className="text-2xl font-bold text-[#3b2a24] mb-6">
                 Add New Placement
               </h2>
 
@@ -93,7 +115,8 @@ export default function AddPlacement() {
                   name="student"
                   value={form.student}
                   onChange={handleChange}
-                  className="input">
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
+                >
                   <option value="">Select Student *</option>
                   {students.map((s) => (
                     <option key={s._id} value={s._id}>
@@ -108,7 +131,8 @@ export default function AddPlacement() {
                   value={form.companyName}
                   onChange={handleChange}
                   placeholder="Company name *"
-                  className="input"/>
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
+                />
 
                 <input
                   type="text"
@@ -116,7 +140,8 @@ export default function AddPlacement() {
                   value={form.jobRole}
                   onChange={handleChange}
                   placeholder="Job role *"
-                  className="input"/>
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
+                />
 
                 <input
                   type="text"
@@ -124,7 +149,8 @@ export default function AddPlacement() {
                   value={form.package}
                   onChange={handleChange}
                   placeholder="Package (e.g. 6 LPA) *"
-                  className="input"/>
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
+                />
 
                 <input
                   type="text"
@@ -132,13 +158,15 @@ export default function AddPlacement() {
                   value={form.location}
                   onChange={handleChange}
                   placeholder="Location *"
-                  className="input"/>
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
+                />
 
                 <select
                   name="status"
                   value={form.status}
                   onChange={handleChange}
-                  className="input">
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
+                >
                   <option value="Placed">Placed</option>
                   <option value="Offered">Offered</option>
                   <option value="Rejected">Rejected</option>
@@ -149,12 +177,22 @@ export default function AddPlacement() {
                   name="joiningDate"
                   value={form.joiningDate}
                   onChange={handleChange}
-                  className="input"/>
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
+                />
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-cyan-600 text-white py-3 rounded-full">
+                  className="
+                    w-full
+                    bg-[#b08a63]
+                    hover:bg-[#9c774b]
+                    text-white
+                    py-3
+                    rounded-full
+                    transition
+                  "
+                >
                   {loading ? "Saving..." : "Add Placement"}
                 </button>
               </form>

@@ -46,28 +46,20 @@ export default function AddCourse() {
 
       const formData = new FormData();
 
-      // normal fields
       Object.entries(form).forEach(([key, value]) => {
         if (key === "syllabus") {
           formData.append(
             "syllabus",
-            JSON.stringify(
-              value.split(",").map((s) => s.trim())
-            )
+            JSON.stringify(value.split(",").map((s) => s.trim()))
           );
         } else {
           formData.append(key, value);
         }
       });
 
-      // nested instructor
       formData.append("instructor[name]", form.instructorName);
-      formData.append(
-        "instructor[experience]",
-        form.instructorExperience
-      );
+      formData.append("instructor[experience]", form.instructorExperience);
 
-      // image
       formData.append("courseImg", courseImg);
 
       await callApi("/admin/createCourse", "POST", formData);
@@ -75,54 +67,66 @@ export default function AddCourse() {
       toast.success("Course created successfully");
       navigate("/courses");
     } catch (err) {
-      toast.error(
-        err?.response?.data?.message || "Failed to create course"
-      );
+      toast.error(err?.response?.data?.message || "Failed to create course");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div className="w-full min-h-screen relative overflow-hidden bg-[#f7f2ec]">
+      {/* ===== LIGHT BROWN BACKGROUND ===== */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f7f2ec] via-[#f3e6d8] to-[#ead7c0]" />
+
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-20"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px]
+                   bg-cover bg-center opacity-[0.12] blur-sm rounded-full"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
-      <div className="absolute inset-0 bg-gray-50 backdrop-blur-sm" />
 
-      <div className="relative z-20 flex min-h-screen">
+      <div
+        className="absolute bottom-0 left-0 w-[400px] h-[400px]
+                   bg-gradient-to-br from-[#e6c8a5]/40 to-[#d9b48a]/40
+                   rounded-full blur-3xl"
+      />
+
+      <div className="relative z-10 flex min-h-screen">
         <Sidebar />
 
         <div className="flex-1 flex flex-col">
           <Header />
 
           <main className="flex-1 px-4 md:px-8 py-8">
-            <div className="max-w-4xl mx-auto bg-white border border-cyan-200 rounded-2xl p-8">
-
-              <h2 className="text-2xl font-bold text-gray-900">
+            <div
+              className="
+                max-w-4xl mx-auto
+                bg-white
+                border border-[#ead7c0]
+                rounded-2xl
+                p-8
+                shadow-sm
+              "
+            >
+              <h2 className="text-2xl font-bold text-[#3b2a24]">
                 Create Course
               </h2>
-              <p className="text-sm text-gray-600 mb-6">
-                Add course details
-              </p>
+              <p className="text-sm text-[#7a5a3a] mb-6">Add course details</p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
-
                 {/* BASIC INFO */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
                     name="courseName"
                     placeholder="Course name *"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   />
 
                   <input
                     name="duration"
                     placeholder="Duration (e.g. 6 Months) *"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   />
                 </div>
 
@@ -132,14 +136,14 @@ export default function AddCourse() {
                     name="fee"
                     placeholder="Course fee *"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   />
 
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => setCourseImg(e.target.files[0])}
-                    className="input"
+                    className="input border-[#ead7c0]"
                   />
                 </div>
 
@@ -149,7 +153,14 @@ export default function AddCourse() {
                   placeholder="Short description"
                   rows={2}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-xl text-sm resize-none"
+                  className="
+                    w-full px-3 py-2
+                    border border-[#ead7c0]
+                    rounded-xl text-sm
+                    resize-none
+                    focus:outline-none
+                    focus:ring-2 focus:ring-[#b08a63]
+                  "
                 />
 
                 {/* SYLLABUS */}
@@ -157,7 +168,7 @@ export default function AddCourse() {
                   name="syllabus"
                   placeholder="Syllabus (comma separated)"
                   onChange={handleChange}
-                  className="input"
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
                 />
 
                 {/* ELIGIBILITY + LEVEL */}
@@ -166,13 +177,13 @@ export default function AddCourse() {
                     name="eligibility"
                     placeholder="Eligibility"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   />
 
                   <select
                     name="level"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   >
                     <option>Beginner</option>
                     <option>Intermediate</option>
@@ -185,7 +196,7 @@ export default function AddCourse() {
                   <select
                     name="mode"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   >
                     <option>Offline</option>
                     <option>Online</option>
@@ -195,7 +206,7 @@ export default function AddCourse() {
                   <select
                     name="status"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   >
                     <option>Active</option>
                     <option>Inactive</option>
@@ -208,14 +219,14 @@ export default function AddCourse() {
                     name="instructorName"
                     placeholder="Instructor name"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   />
 
                   <input
                     name="instructorExperience"
                     placeholder="Instructor experience (e.g. 5+ years)"
                     onChange={handleChange}
-                    className="input"
+                    className="input border-[#ead7c0] focus:ring-[#b08a63]"
                   />
                 </div>
 
@@ -224,7 +235,7 @@ export default function AddCourse() {
                   type="date"
                   name="startDate"
                   onChange={handleChange}
-                  className="input"
+                  className="input border-[#ead7c0] focus:ring-[#b08a63]"
                 />
 
                 {/* ACTIONS */}
@@ -232,7 +243,17 @@ export default function AddCourse() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 bg-cyan-600 text-white py-2.5 rounded-full font-medium hover:bg-cyan-700 disabled:opacity-70"
+                    className="
+                      flex-1
+                      bg-[#b08a63]
+                      hover:bg-[#9c774b]
+                      text-white
+                      py-2.5
+                      rounded-full
+                      font-medium
+                      transition
+                      disabled:opacity-70
+                    "
                   >
                     {loading ? "Creating..." : "Create Course"}
                   </button>
@@ -240,12 +261,19 @@ export default function AddCourse() {
                   <button
                     type="button"
                     onClick={() => navigate("/courses")}
-                    className="px-8 py-2 border rounded-full text-sm"
+                    className="
+                      px-8 py-2
+                      border border-[#d9b48a]
+                      rounded-full
+                      text-sm
+                      text-[#7a5a3a]
+                      hover:bg-[#f3e6d8]
+                      transition
+                    "
                   >
                     Cancel
                   </button>
                 </div>
-
               </form>
             </div>
           </main>

@@ -28,11 +28,20 @@ function Placement() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden bg-gray-50">
-      {/* DASHBOARD BACKGROUND */}
+    <div className="w-full min-h-screen relative overflow-hidden bg-[#f7f2ec]">
+      {/* ===== LIGHT BROWN BACKGROUND ===== */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f7f2ec] via-[#f3e6d8] to-[#ead7c0]" />
+
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px]
+                   bg-cover bg-center opacity-[0.12] blur-sm rounded-full"
         style={{ backgroundImage: `url(${bgImage})` }}
+      />
+
+      <div
+        className="absolute bottom-0 left-0 w-[400px] h-[400px]
+                   bg-gradient-to-br from-[#e6c8a5]/40 to-[#d9b48a]/40
+                   rounded-full blur-3xl"
       />
 
       <div className="relative z-10 flex min-h-screen">
@@ -43,14 +52,13 @@ function Placement() {
 
           <main className="flex-1 px-6 py-8">
             <div className="max-w-7xl mx-auto space-y-8">
-
               {/* HEADER */}
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900">
+                  <h2 className="text-3xl font-bold text-[#3b2a24]">
                     Placements
                   </h2>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-[#7a5a3a]">
                     Student placement records
                   </p>
                 </div>
@@ -59,9 +67,9 @@ function Placement() {
                   onClick={() => navigate("/add-placement")}
                   className="
                     px-6 py-2 rounded-full
-                    bg-cyan-600 text-white text-sm
-                    font-medium hover:bg-cyan-700
-                    shadow-sm
+                    bg-[#b08a63] text-white text-sm
+                    font-medium hover:bg-[#9c774b]
+                    shadow-sm transition
                   "
                 >
                   + Add Placement
@@ -70,12 +78,12 @@ function Placement() {
 
               {/* LOADING */}
               {loading && (
-                <div className="text-center text-gray-500 py-16">
+                <div className="text-center text-[#7a5a3a] py-16">
                   Loading placements...
                 </div>
               )}
 
-              {/* PREMIUM PLACEMENT CARDS */}
+              {/* PLACEMENT CARDS */}
               {!loading && placements.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {placements.map((p) => (
@@ -83,28 +91,27 @@ function Placement() {
                       key={p._id}
                       className="
                         bg-white rounded-2xl p-5
-                        border border-cyan-200
+                        border border-[#ead7c0]
                         shadow-sm hover:shadow-lg
                         transition-all duration-300
                         hover:-translate-y-1
                       "
                     >
                       {/* STUDENT */}
-                      <h3 className="font-semibold text-gray-900 text-sm">
+                      <h3 className="font-semibold text-[#3b2a24] text-sm">
                         {p.student?.name || "Student"}
                       </h3>
 
                       {/* INFO */}
-                      <div className="mt-2 text-xs text-gray-600 space-y-1">
+                      <div className="mt-2 text-xs text-[#6b4a2e] space-y-1">
                         <p>
                           <span className="font-medium">Company:</span>{" "}
                           {p.companyName}
                         </p>
                         <p>
-                          <span className="font-medium">Role:</span>{" "}
-                          {p.jobRole}
+                          <span className="font-medium">Role:</span> {p.jobRole}
                         </p>
-                        <p className="font-medium text-gray-800">
+                        <p className="font-medium text-[#4a2f1a]">
                           Package: ₹{p.package}
                         </p>
                       </div>
@@ -115,10 +122,10 @@ function Placement() {
                           className={`inline-block px-3 py-1 rounded-full
                           text-[11px] font-medium ${
                             p.status === "Placed"
-                              ? "bg-green-100 text-green-700"
+                              ? "bg-[#e6f0e6] text-[#2f6b2f]"
                               : p.status === "Offered"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-gray-100 text-gray-700"
+                              ? "bg-[#f5ecd9] text-[#8a6a2f]"
+                              : "bg-[#f0ebe5] text-[#7a5a3a]"
                           }`}
                         >
                           {p.status || "Placed"}
@@ -131,11 +138,10 @@ function Placement() {
 
               {/* EMPTY */}
               {!loading && placements.length === 0 && (
-                <div className="text-center text-gray-500 py-16">
+                <div className="text-center text-[#7a5a3a] py-16">
                   No placements found
                 </div>
               )}
-
             </div>
           </main>
         </div>

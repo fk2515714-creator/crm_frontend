@@ -58,48 +58,51 @@ function AddAlumni() {
   };
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div className="w-full min-h-screen relative overflow-hidden bg-[#f7f2ec]">
+      {/* ===== LIGHT BROWN BACKGROUND ===== */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f7f2ec] via-[#f3e6d8] to-[#ead7c0]" />
+
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgImage})` }}/>
-      <div className="absolute inset-0 bg-gray-50 backdrop-blur-xl" />
+        className="absolute -top-40 -right-40 w-[520px] h-[520px]
+        bg-cover bg-center opacity-[0.12] blur-sm rounded-full"
+        style={{ backgroundImage: `url(${bgImage})` }}
+      />
 
       <div className="relative z-20 flex min-h-screen">
-        <Sidebar/>
+        <Sidebar />
 
         <div className="flex-1 flex flex-col">
           <Header userName="Add Alumni" />
 
           <main className="flex-1 px-4 py-10">
             <div className="max-w-3xl mx-auto">
-
               {/* Heading */}
               <div className="mb-8 text-center">
-                <h2 className="text-3xl font-extrabold text-gray-900">
+                <h2 className="text-3xl font-extrabold text-[#3b2a24]">
                   Add Alumni
                 </h2>
-                <p className="text-gray-600 mt-1">
+                <p className="text-[#7a5a3a] mt-1">
                   Mark a student as alumni after placement
                 </p>
               </div>
 
               {/* Card */}
               <div
-                className="bg-white border border-cyan-300
+                className="bg-white border border-[#ead7c0]
                 rounded-3xl p-8 shadow-sm"
               >
                 <form className="space-y-6">
-
                   {/* Student */}
                   <div>
-                    <label className="text-sm font-medium text-gray-700">
+                    <label className="text-sm font-medium text-[#5c4630]">
                       Student *
                     </label>
                     <select
                       name="student"
                       value={form.student}
                       onChange={handleChange}
-                      className="input">
+                      className="input"
+                    >
                       <option value="">Select Student</option>
                       {students.map((s) => (
                         <option key={s._id} value={s._id}>
@@ -111,9 +114,8 @@ function AddAlumni() {
 
                   {/* Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-sm font-medium text-[#5c4630]">
                         Passing Year *
                       </label>
                       <input
@@ -121,11 +123,12 @@ function AddAlumni() {
                         value={form.passingYear}
                         onChange={handleChange}
                         placeholder="e.g. 2023"
-                        className="input"/>
+                        className="input"
+                      />
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-sm font-medium text-[#5c4630]">
                         Company
                       </label>
                       <input
@@ -138,7 +141,7 @@ function AddAlumni() {
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-sm font-medium text-[#5c4630]">
                         Job Role
                       </label>
                       <input
@@ -146,11 +149,12 @@ function AddAlumni() {
                         value={form.jobRole}
                         onChange={handleChange}
                         placeholder="Job role"
-                        className="input"/>
+                        className="input"
+                      />
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-gray-700">
+                      <label className="text-sm font-medium text-[#5c4630]">
                         Location
                       </label>
                       <input
@@ -158,9 +162,9 @@ function AddAlumni() {
                         value={form.location}
                         onChange={handleChange}
                         placeholder="City / Location"
-                        className="input"/>
+                        className="input"
+                      />
                     </div>
-
                   </div>
 
                   {/* Buttons */}
@@ -169,10 +173,11 @@ function AddAlumni() {
                       type="button"
                       onClick={handleSubmit}
                       disabled={loading}
-                      className="flex-1 bg-cyan-600 text-white
+                      className="flex-1 bg-[#b08a63] text-white
                       py-3 rounded-full font-medium text-sm
-                      hover:bg-cyan-700 transition
-                      disabled:opacity-70">
+                      hover:bg-[#9c774b] transition
+                      disabled:opacity-70"
+                    >
                       {loading ? "Creating..." : "Create Alumni"}
                     </button>
 
@@ -180,7 +185,8 @@ function AddAlumni() {
                       type="button"
                       onClick={() => navigate("/alumni")}
                       className="px-6 py-3 rounded-full border
-                      text-sm hover:bg-gray-50">
+                      text-sm hover:bg-[#f3e6d8]"
+                    >
                       Cancel
                     </button>
                   </div>

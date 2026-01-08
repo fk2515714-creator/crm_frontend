@@ -29,7 +29,7 @@ export default function CourseView() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-500">
+      <div className="min-h-screen flex items-center justify-center text-[#7a5a3a]">
         Loading course...
       </div>
     );
@@ -37,111 +37,146 @@ export default function CourseView() {
 
   if (!course) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-500">
+      <div className="min-h-screen flex items-center justify-center text-[#7a5a3a]">
         Course not found
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
+    <div className="min-h-screen relative overflow-hidden bg-[#f7f2ec]">
+      {/* ===== LIGHT BROWN BACKGROUND ===== */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f7f2ec] via-[#f3e6d8] to-[#ead7c0]" />
 
-      <div className="flex-1 flex flex-col">
-        <Header userName="Course Details" />
+      <div className="relative z-10 flex min-h-screen">
+        <Sidebar />
 
-        <main className="flex-1 px-6 py-8">
-          <div className="max-w-3xl mx-auto space-y-6">
+        <div className="flex-1 flex flex-col">
+          <Header userName="Course Details" />
 
-            {/* BACK */}
-            <button
-              onClick={() => navigate(-1)}
-              className="text-sm text-cyan-600 hover:underline"
-            >
-              ← Back
-            </button>
+          <main className="flex-1 px-6 py-8">
+            <div className="max-w-4xl mx-auto space-y-6">
+              {/* BACK */}
+              <button
+                onClick={() => navigate(-1)}
+                className="text-sm text-[#7a5a3a] hover:underline"
+              >
+                ← Back
+              </button>
 
-            {/* HORIZONTAL CARD */}
-            <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 flex gap-6 items-center">
+              {/* COURSE CARD */}
+              <div
+                className="
+                  bg-white
+                  border border-[#ead7c0]
+                  rounded-3xl
+                  shadow-sm hover:shadow-lg
+                  transition-all
+                  p-6 md:p-8
+                  flex flex-col md:flex-row
+                  gap-6
+                "
+              >
+                {/* IMAGE */}
+                {course.courseImg && (
+                  <div className="bg-[#f3e6d8] p-3 rounded-2xl shrink-0">
+                    <img
+                      src={course.courseImg}
+                      alt={course.courseName}
+                      className="w-40 h-28 object-contain rounded-xl"
+                    />
+                  </div>
+                )}
 
-              {/* SMALL IMAGE - LEFT */}
-              {course.courseImg && (
-                <div className=" bg-gray-50 p-2 rounded-xl">
-                  <img
-                    src={course.courseImg}
-                    alt={course.courseName}
-                    className="w-36 h-24 object-contain rounded-lg"/>
-                </div>
-              )}
+                {/* CONTENT */}
+                <div className="flex-1 space-y-4">
+                  {/* LEVEL */}
+                  <span
+                    className="
+                      inline-block text-xs px-4 py-1.5 rounded-full
+                      border border-[#d9b48a]
+                      text-[#7a5a3a] font-medium
+                      bg-[#f7f2ec]
+                    "
+                  >
+                    {course.level}
+                  </span>
 
-              {/* CONTENT - RIGHT */}
-              <div className="flex-1 space-y-3">
+                  {/* TITLE */}
+                  <h1 className="text-2xl font-bold text-[#3b2a24]">
+                    {course.courseName}
+                  </h1>
 
-                {/* LEVEL */}
-                <span className="inline-block text-xs px-3 py-1 rounded-full border border-cyan-200 text-cyan-600 font-medium">
-                  {course.level}
-                </span>
+                  {/* DESCRIPTION */}
+                  <p className="text-sm text-[#5c4630] max-w-2xl">
+                    {course.description || "No description available"}
+                  </p>
 
-                {/* TITLE */}
-                <h1 className="text-xl font-semibold text-gray-900">
-                  {course.courseName}
-                </h1>
+                  {/* DETAILS */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm pt-2">
+                    <div>
+                      <span className="text-xs text-[#7a5a3a]">Duration</span>
+                      <p className="font-semibold text-[#3b2a24]">
+                        {course.duration}
+                      </p>
+                    </div>
 
-                {/* DESCRIPTION */}
-                <p className="text-sm text-gray-600 max-w-xl">
-                  {course.description || "No description available"}
-                </p>
+                    <div>
+                      <span className="text-xs text-[#7a5a3a]">Fee</span>
+                      <p className="font-semibold text-[#3b2a24]">
+                        ₹ {course.fee}
+                      </p>
+                    </div>
 
-                {/* DETAILS */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm pt-2">
-                  <div>
-                    <span className="text-gray-500 text-xs">Duration</span>
-                    <p className="font-medium text-gray-800">
-                      {course.duration}
-                    </p>
+                    <div>
+                      <span className="text-xs text-[#7a5a3a]">Mode</span>
+                      <p className="font-semibold text-[#3b2a24]">
+                        {course.mode}
+                      </p>
+                    </div>
+
+                    <div>
+                      <span className="text-xs text-[#7a5a3a]">Status</span>
+                      <p className="font-semibold text-[#3b2a24]">
+                        {course.status || "Active"}
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <span className="text-gray-500 text-xs">Fee</span>
-                    <p className="font-medium text-gray-800">
-                      ₹ {course.fee}
-                    </p>
+                  {/* ACTION */}
+                  <div className="pt-4">
+                    <button
+                      onClick={() => navigate(`/courses/edit/${course._id}`)}
+                      className="
+                        px-8 py-2.5 rounded-full
+                        bg-[#b08a63]
+                        hover:bg-[#9c774b]
+                        text-white text-sm font-medium
+                        transition
+                      "
+                    >
+                      Edit Course
+                    </button>
                   </div>
-
-                  <div>
-                    <span className="text-gray-500 text-xs">Mode</span>
-                    <p className="font-medium text-gray-800">
-                      {course.mode}
-                    </p>
-                  </div>
-
-                  <div>
-                    <span className="text-gray-500 text-xs">Status</span>
-                    <p className="font-medium text-gray-800">
-                      {course.status || "Active"}
-                    </p>
-                  </div>
-                </div>
-
-                {/* ACTION */}
-                <div className="pt-3">
-                  <button
-                    onClick={() => navigate(`/courses/edit/${course._id}`)}
-                    className="px-6 py-2 bg-cyan-600 text-white rounded-full hover:bg-cyan-700 transition">
-                    Edit Course
-                  </button>
                 </div>
               </div>
-            </div>
 
-            {/* FOOTER */}
-            <button
-              onClick={() => navigate("/courses")}
-              className="px-6 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-100 transition">
-              Back to Courses
-            </button>
-          </div>
-        </main>
+              {/* FOOTER */}
+              <button
+                onClick={() => navigate("/courses")}
+                className="
+                  px-6 py-2 rounded-full
+                  border border-[#d9b48a]
+                  text-[#7a5a3a]
+                  hover:bg-[#f3e6d8]
+                  transition
+                "
+              >
+                Back to Courses
+              </button>
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

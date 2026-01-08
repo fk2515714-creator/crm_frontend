@@ -49,20 +49,27 @@ export default function Courses() {
       toast.success("Course deleted successfully");
       setCourses((prev) => prev.filter((c) => c._id !== id));
     } catch (error) {
-      toast.error(
-        error?.response?.data?.message || "Failed to delete course"
-      );
+      toast.error(error?.response?.data?.message || "Failed to delete course");
     } finally {
       setDeletingId(null);
     }
   };
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden bg-gray-50">
-      {/* DASHBOARD BACKGROUND */}
+    <div className="w-full min-h-screen relative overflow-hidden bg-[#f7f2ec]">
+      {/* ===== LIGHT BROWN BACKGROUND ===== */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f7f2ec] via-[#f3e6d8] to-[#ead7c0]" />
+
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px]
+                   bg-cover bg-center opacity-[0.12] blur-sm rounded-full"
         style={{ backgroundImage: `url(${bgImage})` }}
+      />
+
+      <div
+        className="absolute bottom-0 left-0 w-[400px] h-[400px]
+                   bg-gradient-to-br from-[#e6c8a5]/40 to-[#d9b48a]/40
+                   rounded-full blur-3xl"
       />
 
       <div className="relative z-10 flex min-h-screen">
@@ -73,14 +80,11 @@ export default function Courses() {
 
           <main className="flex-1 px-6 py-8">
             <div className="max-w-7xl mx-auto space-y-8">
-
               {/* HEADER */}
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900">
-                    Courses
-                  </h2>
-                  <p className="text-sm text-gray-500">
+                  <h2 className="text-3xl font-bold text-[#3b2a24]">Courses</h2>
+                  <p className="text-sm text-[#7a5a3a]">
                     Manage institute courses
                   </p>
                 </div>
@@ -96,9 +100,10 @@ export default function Courses() {
                     placeholder="Search courses..."
                     className="
                       px-5 py-2 rounded-full
-                      border border-gray-300
+                      border border-[#d9b48a]
                       text-sm w-full md:w-72
-                      focus:outline-none focus:ring-2 focus:ring-cyan-300
+                      focus:outline-none
+                      focus:ring-2 focus:ring-[#b08a63]
                     "
                   />
 
@@ -106,9 +111,12 @@ export default function Courses() {
                     onClick={() => navigate("/add-course")}
                     className="
                       px-6 py-2 rounded-full
-                      bg-cyan-600 text-white text-sm
-                      font-medium hover:bg-cyan-700
+                      bg-[#b08a63]
+                      hover:bg-[#9c774b]
+                      text-white text-sm
+                      font-medium
                       shadow-sm
+                      transition
                     "
                   >
                     + Add Course
@@ -118,12 +126,12 @@ export default function Courses() {
 
               {/* LOADING */}
               {loading && (
-                <div className="text-center text-gray-500 py-16">
+                <div className="text-center text-[#7a5a3a] py-16">
                   Loading courses...
                 </div>
               )}
 
-              {/* PREMIUM COURSE CARDS */}
+              {/* COURSE CARDS */}
               {!loading && showCourses.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {showCourses.map((c) => (
@@ -131,7 +139,7 @@ export default function Courses() {
                       key={c._id}
                       className="
                         bg-white rounded-2xl p-5
-                        border border-cyan-200
+                        border border-[#ead7c0]
                         shadow-sm hover:shadow-lg
                         transition-all duration-300
                         hover:-translate-y-1
@@ -139,11 +147,15 @@ export default function Courses() {
                       "
                     >
                       {/* IMAGE */}
-                      <div className="
-                        w-14 h-14 rounded-full
-                        overflow-hidden bg-cyan-100
-                        shrink-0
-                      ">
+                      <div
+                        className="
+                          w-14 h-14 rounded-full
+                          overflow-hidden bg-[#f3e6d8]
+                          shrink-0
+                          flex items-center justify-center
+                          text-[#7a5a3a] font-semibold
+                        "
+                      >
                         {c.courseImg ? (
                           <img
                             src={c.courseImg}
@@ -151,32 +163,27 @@ export default function Courses() {
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <div className="h-full w-full flex items-center justify-center
-                            text-cyan-700 font-semibold text-sm">
-                            {c.courseName?.[0]}
-                          </div>
+                          c.courseName?.[0]
                         )}
                       </div>
 
                       {/* INFO */}
                       <div className="flex-1 flex flex-col justify-between">
                         <div>
-                          <h3 className="font-semibold text-gray-900 text-sm">
+                          <h3 className="font-semibold text-[#3b2a24] text-sm">
                             {c.courseName}
                           </h3>
 
-                          <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                          <p className="text-xs text-[#7a5a3a] mt-1 line-clamp-2">
                             {c.description || "No description available"}
                           </p>
 
-                          <div className="mt-2 text-xs text-gray-600 space-y-1">
+                          <div className="mt-2 text-xs text-[#5c4630] space-y-1">
                             <p>
                               <span className="font-medium">Duration:</span>{" "}
                               {c.duration}
                             </p>
-                            <p className="font-medium text-gray-800">
-                              Fee: ₹{c.fee}
-                            </p>
+                            <p className="font-medium">Fee: ₹{c.fee}</p>
                           </div>
                         </div>
 
@@ -186,8 +193,9 @@ export default function Courses() {
                             onClick={() => navigate(`/courses/${c._id}`)}
                             className="
                               flex-1 rounded-full py-1.5 text-xs
-                              border border-cyan-400 text-cyan-700
-                              hover:bg-cyan-50
+                              border border-[#d9b48a]
+                              text-[#7a5a3a]
+                              hover:bg-[#f3e6d8]
                             "
                           >
                             View
@@ -197,8 +205,9 @@ export default function Courses() {
                             onClick={() => navigate(`/courses/edit/${c._id}`)}
                             className="
                               flex-1 rounded-full py-1.5 text-xs
-                              border border-gray-300 text-gray-700
-                              hover:bg-gray-50
+                              border border-[#e0d3c2]
+                              text-[#5c4630]
+                              hover:bg-[#f7f2ec]
                             "
                           >
                             Edit
@@ -209,8 +218,10 @@ export default function Courses() {
                             onClick={() => handleDelete(c._id)}
                             className="
                               flex-1 rounded-full py-1.5 text-xs
-                              border border-red-300 text-red-600
-                              hover:bg-red-50 disabled:opacity-60
+                              border border-red-300
+                              text-red-600
+                              hover:bg-red-50
+                              disabled:opacity-60
                             "
                           >
                             {deletingId === c._id ? "..." : "Delete"}
@@ -229,9 +240,10 @@ export default function Courses() {
                     onClick={() => setVisible((v) => v + 3)}
                     className="
                       px-6 py-2 rounded-full
-                      border border-cyan-400
-                      text-cyan-700 text-sm
-                      hover:bg-cyan-50
+                      border border-[#d9b48a]
+                      text-[#7a5a3a]
+                      text-sm
+                      hover:bg-[#f3e6d8]
                     "
                   >
                     Load More
@@ -241,11 +253,10 @@ export default function Courses() {
 
               {/* EMPTY */}
               {!loading && !filtered.length && (
-                <div className="text-center text-gray-500 py-16">
+                <div className="text-center text-[#7a5a3a] py-16">
                   No courses found
                 </div>
               )}
-
             </div>
           </main>
         </div>

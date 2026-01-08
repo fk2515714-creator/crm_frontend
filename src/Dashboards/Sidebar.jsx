@@ -1,8 +1,160 @@
+// import React, { useContext, useState } from "react";
+// import { NavLink } from "react-router-dom";
+// import { AuthContext } from "../Context/AuthContext";
+// import logo from "../assets/logo (2).png";
+// // Icons
+// import {
+//   FiHome,
+//   FiUsers,
+//   FiBookOpen,
+//   FiUserCheck,
+//   FiBriefcase,
+//   FiFileText,
+//   FiGrid,
+//   FiMenu,
+//   FiX,
+// } from "react-icons/fi";
+// import { CgProfile } from "react-icons/cg";
+
+// export default function Sidebar() {
+//   const { role, allowedTabs } = useContext(AuthContext);
+//   const [open, setOpen] = useState(false);
+
+//   const displayRole = role
+//     ? role.charAt(0).toUpperCase() + role.slice(1)
+//     : "User";
+
+//   // 🔒 ICON LOGIC (UNCHANGED)
+//   const getIcon = (tab) => {
+//     const path = tab.path?.toLowerCase();
+//     const label = tab.label?.toLowerCase();
+
+//     if (path?.includes("dashboard") || label?.includes("dashboard"))
+//       return <FiHome />;
+
+//     if (path?.includes("student") || label?.includes("student"))
+//       return <FiUsers />;
+
+//     if (path?.includes("course") || label?.includes("course"))
+//       return <FiBookOpen />;
+
+//     if (path?.includes("teacher") || label?.includes("teacher"))
+//       return <FiUserCheck />;
+
+//     if (path?.includes("placement") || label?.includes("placement"))
+//       return <FiBriefcase />;
+
+//     if (path?.includes("resume") || label?.includes("resume"))
+//       return <FiFileText />;
+
+//     if (
+//       path?.includes("profile") ||
+//       path?.includes("setting") ||
+//       label?.includes("profile") ||
+//       label?.includes("setting")
+//     )
+//       return <CgProfile />;
+
+//     return <FiGrid />;
+//   };
+
+//   return (
+//     <>
+//       {/* Mobile toggle */}
+//       <button
+//         onClick={() => setOpen(true)}
+//         className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-[#c6a27e] text-white"
+//       >
+//         <FiMenu size={20} />
+//       </button>
+
+//       {open && (
+//         <div
+//           onClick={() => setOpen(false)}
+//           className="fixed inset-0 bg-black/40 z-40 md:hidden"
+//         />
+//       )}
+
+//       {/* SIDEBAR */}
+//       <aside
+//         className={`
+//           fixed md:static top-0 left-0 z-50
+//           h-screen
+//           bg-gradient-to-b from-[#d6b38c] to-[#b08a63]
+//           text-white
+//           transition-all duration-300
+//           ${open ? "w-64" : "w-16"}
+//           md:hover:w-64
+//           group
+//         `}
+//       >
+//         {/* HEADER */}
+//         <div className="h-16 flex items-center justify-center border-b border-white/20">
+//           <span className="text-lg font-bold tracking-wide">Stack CRM</span>
+//         </div>
+
+//         {/* MENU */}
+//         <nav className="mt-4 flex flex-col gap-1 px-2">
+//           {allowedTabs?.length > 0 ? (
+//             allowedTabs.map((tab) => (
+//               <NavLink
+//                 key={tab.path}
+//                 to={tab.path}
+//                 onClick={() => setOpen(false)}
+//                 className={({ isActive }) =>
+//                   `
+//                   flex items-center gap-4 px-3 py-2.5 rounded-md
+//                   text-sm font-medium
+//                   transition-all
+//                   ${isActive ? "bg-white/25" : "hover:bg-white/15"}
+//                 `
+//                 }
+//               >
+//                 {/* ICON */}
+//                 <span className="text-lg min-w-[20px]">{getIcon(tab)}</span>
+
+//                 {/* LABEL */}
+//                 <span
+//                   className="
+//                     whitespace-nowrap
+//                     opacity-0
+//                     group-hover:opacity-100
+//                     transition-opacity duration-200
+//                   "
+//                 >
+//                   {tab.label}
+//                 </span>
+//               </NavLink>
+//             ))
+//           ) : (
+//             <p className="text-xs text-center text-white/70 mt-6">No menu</p>
+//           )}
+//         </nav>
+
+//         {/* FOOTER */}
+//         <div className="absolute bottom-0 w-full border-t border-white/20 p-3">
+//           <p
+//             className="
+//               text-xs text-white/70
+//               opacity-0
+//               group-hover:opacity-100
+//               transition
+//               text-center
+//             "
+//           >
+//             © {new Date().getFullYear()} Stack CRM
+//           </p>
+//         </div>
+//       </aside>
+//     </>
+//   );
+// }
+
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 
-//Icons
+// Icons
 import {
   FiHome,
   FiUsers,
@@ -11,6 +163,7 @@ import {
   FiBriefcase,
   FiFileText,
   FiGrid,
+  FiMenu,
 } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 
@@ -22,28 +175,28 @@ export default function Sidebar() {
     ? role.charAt(0).toUpperCase() + role.slice(1)
     : "User";
 
-  //icon picker
+  // 🔒 ICON LOGIC (UNCHANGED)
   const getIcon = (tab) => {
     const path = tab.path?.toLowerCase();
     const label = tab.label?.toLowerCase();
 
     if (path?.includes("dashboard") || label?.includes("dashboard"))
-      return <FiHome size={16} />;
+      return <FiHome />;
 
     if (path?.includes("student") || label?.includes("student"))
-      return <FiUsers size={16} />;
+      return <FiUsers />;
 
     if (path?.includes("course") || label?.includes("course"))
-      return <FiBookOpen size={16} />;
+      return <FiBookOpen />;
 
     if (path?.includes("teacher") || label?.includes("teacher"))
-      return <FiUserCheck size={16} />;
+      return <FiUserCheck />;
 
     if (path?.includes("placement") || label?.includes("placement"))
-      return <FiBriefcase size={16} />;
+      return <FiBriefcase />;
 
     if (path?.includes("resume") || label?.includes("resume"))
-      return <FiFileText size={16} />;
+      return <FiFileText />;
 
     if (
       path?.includes("profile") ||
@@ -51,60 +204,51 @@ export default function Sidebar() {
       label?.includes("profile") ||
       label?.includes("setting")
     )
-      return <CgProfile size={17} />;
+      return <CgProfile />;
 
-    // fallback
-    return <FiGrid size={16} />;
+    return <FiGrid />;
   };
 
   return (
     <>
-      {/* Mobile Toggle */}
+      {/* Mobile toggle */}
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-40 px-3 py-2 rounded-lg bg-white border text-gray-700">
-        ☰
+        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-[#c6a27e] text-white"
+      >
+        <FiMenu size={20} />
       </button>
 
-      {/* Overlay */}
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="fixed inset-0 z-30 bg-black/30 md:hidden"
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
         />
       )}
 
-      {/* Sidebar */}
+      {/* SIDEBAR */}
       <aside
         className={`
-          fixed md:static top-0 left-0 z-40
-          min-h-screen w-60 md:w-64
-          bg-gray-50 px-4 pb-4
-          pt-16 md:pt-4
-          flex flex-col
-          transform transition-transform duration-300
-          ${open ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
-          border-r border-gray-200`}>
-
-        {/* Header */}
-        <div className="px-1 pt-2 pb-4 flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-cyan-600 flex items-center justify-center text-white font-semibold">
-            PB
-          </div>
-
-          <div className="flex flex-col leading-tight">
-            <span className="text-xs text-gray-500 font-medium">
-              PROCODE BH
-            </span>
-            <span className="text-sm font-semibold text-gray-900 capitalize">
-              {displayRole}
-            </span>
-          </div>
+          fixed md:static top-0 left-0 z-50
+          h-screen
+          bg-gradient-to-b from-[#d6b38c] to-[#b08a63]
+          text-white
+          transition-all duration-300
+          ${open ? "w-64" : "w-16"}
+          md:hover:w-64
+          group
+        `}
+      >
+        {/* HEADER */}
+        <div className="h-16 flex items-center justify-center border-b border-white/20">
+          {/* ✅ ONLY CHANGE: Stack CRM text color made BLACK */}
+          <span className="text-lg font-bold tracking-wide text-black">
+            Stack CRM
+          </span>
         </div>
 
-        {/* Navigation */}
-        <nav className="mt-2 flex-1 space-y-1">
+        {/* MENU */}
+        <nav className="mt-4 flex flex-col gap-1 px-2">
           {allowedTabs?.length > 0 ? (
             allowedTabs.map((tab) => (
               <NavLink
@@ -112,25 +256,49 @@ export default function Sidebar() {
                 to={tab.path}
                 onClick={() => setOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-4 py-2 rounded-full text-sm font-medium transition ${
-                    isActive
-                      ? "bg-cyan-100 text-cyan-700"
-                      : "text-gray-800 hover:bg-gray-100"}`}>
+                  `
+                  flex items-center gap-4 px-3 py-2.5 rounded-md
+                  text-sm font-medium
+                  transition-all
+                  ${isActive ? "bg-white/25" : "hover:bg-white/15"}
+                `
+                }
+              >
                 {/* ICON */}
-                <span className="text-base">
-                  {getIcon(tab)}
-                </span>
+                <span className="text-lg min-w-[20px]">{getIcon(tab)}</span>
 
                 {/* LABEL */}
-                <span>{tab.label}</span>
+                <span
+                  className="
+                    whitespace-nowrap
+                    opacity-0
+                    group-hover:opacity-100
+                    transition-opacity duration-200
+                  "
+                >
+                  {tab.label}
+                </span>
               </NavLink>
             ))
           ) : (
-            <p className="text-xs text-gray-500 mt-4 px-1">
-              No menu available for this role.
-            </p>
+            <p className="text-xs text-center text-white/70 mt-6">No menu</p>
           )}
         </nav>
+
+        {/* FOOTER */}
+        <div className="absolute bottom-0 w-full border-t border-white/20 p-3">
+          <p
+            className="
+              text-xs text-white/70
+              opacity-0
+              group-hover:opacity-100
+              transition
+              text-center
+            "
+          >
+            © {new Date().getFullYear()} Stack CRM
+          </p>
+        </div>
       </aside>
     </>
   );

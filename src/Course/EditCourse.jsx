@@ -25,7 +25,7 @@ export default function EditCourse() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  // fetch course by id
+  /* FETCH COURSE (UNCHANGED) */
   useEffect(() => {
     const fetchCourse = async () => {
       try {
@@ -42,7 +42,7 @@ export default function EditCourse() {
           level: c.level || "Beginner",
           mode: c.mode || "Offline",
         });
-      } catch (err) {
+      } catch {
         toast.error("Failed to load course");
       } finally {
         setLoading(false);
@@ -71,9 +71,7 @@ export default function EditCourse() {
       toast.success("Course updated successfully");
       navigate(`/courses/${id}`);
     } catch (err) {
-      toast.error(
-        err?.response?.data?.message || "Failed to update course"
-      );
+      toast.error(err?.response?.data?.message || "Failed to update course");
     } finally {
       setSaving(false);
     }
@@ -81,20 +79,22 @@ export default function EditCourse() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center text-[#7a5a3a]">
         Loading course...
       </div>
     );
   }
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
-      {/* background */}
+    <div className="w-full min-h-screen relative overflow-hidden bg-[#f7f2ec]">
+      {/* ===== LIGHT BROWN BACKGROUND ===== */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f7f2ec] via-[#f3e6d8] to-[#ead7c0]" />
+
       <div
-        className="absolute inset-0 bg-cover bg-center opacity-20"
+        className="absolute -top-40 -right-40 w-[500px] h-[500px]
+                   bg-cover bg-center opacity-[0.12] blur-sm rounded-full"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
-      <div className="absolute inset-0 bg-white/90 backdrop-blur-sm" />
 
       <div className="relative z-20 flex min-h-screen">
         <Sidebar />
@@ -103,18 +103,24 @@ export default function EditCourse() {
           <Header userName="Edit Course" />
 
           <main className="flex-1 px-4 md:px-8 py-8">
-            <div className="max-w-5xl mx-auto bg-white border-2 border-cyan-300 rounded-3xl p-10">
-
-              <h2 className="text-2xl font-bold text-gray-900">
-                Edit Course
-              </h2>
-              <p className="text-sm text-gray-600 mb-8">
-                Update course details below.
+            <div
+              className="
+                max-w-5xl mx-auto
+                bg-white
+                border border-[#ead7c0]
+                rounded-3xl
+                p-8 md:p-10
+                shadow-sm hover:shadow-lg
+                transition
+              "
+            >
+              <h2 className="text-2xl font-bold text-[#3b2a24]">Edit Course</h2>
+              <p className="text-sm text-[#7a5a3a] mb-8">
+                Update course details below
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-
-                {/* Row 1 */}
+                {/* ROW 1 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <input
                     name="courseName"
@@ -133,7 +139,7 @@ export default function EditCourse() {
                   />
                 </div>
 
-                {/* Row 2 */}
+                {/* ROW 2 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <input
                     type="number"
@@ -153,7 +159,7 @@ export default function EditCourse() {
                   />
                 </div>
 
-                {/* Description */}
+                {/* DESCRIPTION */}
                 <input
                   name="description"
                   value={form.description}
@@ -162,7 +168,7 @@ export default function EditCourse() {
                   className="pill-input"
                 />
 
-                {/* Row 3 */}
+                {/* ROW 3 */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <input
                     name="eligibility"
@@ -184,7 +190,7 @@ export default function EditCourse() {
                   </select>
                 </div>
 
-                {/* Mode */}
+                {/* MODE */}
                 <select
                   name="mode"
                   value={form.mode}
@@ -196,13 +202,18 @@ export default function EditCourse() {
                   <option value="Hybrid">Hybrid</option>
                 </select>
 
-                {/* Buttons */}
+                {/* ACTIONS */}
                 <div className="flex items-center gap-6 pt-6">
                   <button
                     type="submit"
                     disabled={saving}
-                    className="flex-1 bg-cyan-600 text-white py-4 rounded-full
-                    text-lg font-medium hover:bg-cyan-700 disabled:opacity-70"
+                    className="
+                      flex-1
+                      bg-[#b08a63] hover:bg-[#9c774b]
+                      text-white py-3 rounded-full
+                      text-sm font-medium
+                      transition disabled:opacity-70
+                    "
                   >
                     {saving ? "Saving..." : "Update Course"}
                   </button>
@@ -210,12 +221,17 @@ export default function EditCourse() {
                   <button
                     type="button"
                     onClick={() => navigate(-1)}
-                    className="px-10 py-4 border rounded-full text-lg"
+                    className="
+                      px-10 py-3 rounded-full
+                      border border-[#d9b48a]
+                      text-[#7a5a3a]
+                      hover:bg-[#f3e6d8]
+                      transition
+                    "
                   >
                     Cancel
                   </button>
                 </div>
-
               </form>
             </div>
           </main>
